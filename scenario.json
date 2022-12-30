@@ -1,0 +1,29 @@
+{
+  "state_container": [
+    {
+      "id": "print.url",
+      "require": [
+        "url"
+      ],
+      "execute": "print(\"Расписание доступно по ссылке: \" + str(url))"
+    },
+    {
+      "id": "print.time",
+      "execute": "print(\"Текущее время: \" + __import__('time').asctime())"
+    }
+  ],
+  "scenario_container": [
+    {
+      "id": "print.url",
+      "states_sequence": [
+        "print.url"
+      ]
+    },
+    {
+      "id": "print.time",
+      "states_sequence": [
+        "print.time"
+      ]
+    }
+  ]
+}
