@@ -1,45 +1,10 @@
 {
-  "state_container": [
+  "states_container":
+  [
     {
       "id": "print.time",
-      "execute": "print(\"Текущее время: \" + __import__('time').asctime())"
-    },
-    {
-      "id": "input.university",
-      "value_name": "university",
-      "execute": "input('Введите название института:')"
-    },
-    {
-      "id": "input.semestre",
-      "value_name": "semestre",
-      "execute": "input('Введите название семестра:')"
-    },
-    {
-      "id": "input.course",
-      "value_name": "course",
-      "execute": "input('Введите название курса:')"
-    },
-    {
-      "id": "print.schedule_link",
-      "require": ["university", "semestre", "course"],
-      "call": "print_schedule_link"
-    }
-  ],
-  "scenario_container": [
-    {
-      "id": "print.time",
-      "states_sequence": [
-        "print.time"
-      ]
-    },
-    {
-      "id": "schedule.link.print",
-      "states_sequence": [
-        "input.university",
-        "input.semestre",
-        "input.course",
-        "print.schedule_link"
-      ]
+      "call": "print_time",
+      "next": []
     }
   ]
 }
