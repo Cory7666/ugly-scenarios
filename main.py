@@ -2,13 +2,22 @@ from scenario import scenario_repository
 from context import Context
 from bot_call import bot_calls
 import traceback
+from type_manipulation import type_check, type_cast
 
 
 def choose_and_run_next_state(user_input: str, state: dict[str, str | dict | list], context: Context) -> None:
     if 'next' in state.keys() and len(state['next']) > 0:
 
         if 'var_name' in state.keys():
-            context[state['var_name']] = user_input
+            if 'type' in state.keys():
+                if type_check[state['type']](user_input):
+                    context[state['var_name']] = type_cast[state['type']](user_input)
+                else:
+                    print(
+                        f"Полученная строка не соответствует требуемому типу ({state['type']}).")
+                    return
+            else:
+                context[state['var_name']] = user_input
 
         for next_state_variant in state['next']:
             if 'if' in next_state_variant.keys():

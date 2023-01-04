@@ -35,6 +35,7 @@
       "id": "input.age",
       "message": "Введите возраст некоторого человека.",
       "var_name": "age",
+      "type": "integer",
       "next": [
         {
           "if": "int(age) >= 18",

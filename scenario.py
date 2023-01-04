@@ -16,7 +16,7 @@ class __ScenarioRepository:
         with open("./scenario.json", "r", encoding='utf-8') as file:
             self.__container = self.__parse_scenario_file(json.load(file))
             print('Сценарии загружены!')
-    
+
     def keys(self):
         return self.__container['states_container'].keys()
 
