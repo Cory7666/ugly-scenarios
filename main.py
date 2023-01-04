@@ -5,13 +5,21 @@ import traceback
 from type_manipulation import type_check, type_cast
 
 
+def call_bot_function(function_name: str, context: Context) -> None:
+    if function_name in bot_calls.keys():
+        bot_calls[function_name](context)
+    else:
+        print(f"Функция {function_name} не существует. Обнуление контекста.")
+        context.clear()
+
+
 def choose_and_run_next_state(user_input: str, state: dict[str, str | dict | list], context: Context) -> None:
     if 'next' in state.keys() and len(state['next']) > 0:
-
         if 'var_name' in state.keys():
             if 'type' in state.keys():
                 if type_check[state['type']](user_input):
-                    context[state['var_name']] = type_cast[state['type']](user_input)
+                    context[state['var_name']
+                            ] = type_cast[state['type']](user_input)
                 else:
                     print(
                         f"Полученная строка не соответствует требуемому типу ({state['type']}).")
@@ -44,9 +52,9 @@ def run_state(state: dict[str, str | dict | list], context: Context) -> None:
                     context.clear()
                     break
             else:
-                bot_calls[state['call']](context)
+                call_bot_function(state['call'], context)
         else:
-            bot_calls[state['call']](context)
+            call_bot_function(state['call'], context)
     elif 'message' in state.keys():
         print(state['message'])
 
@@ -63,20 +71,21 @@ def main() -> None:
     while user_input != 'exit':
         try:
             print("> ", end='')
-            user_input = input().strip().lower()
+            user_input = input().strip()
+            user_input_lower = user_input.lower()
 
-            if len(user_input) == 0 or user_input == 'exit':
+            if len(user_input_lower) == 0 or user_input_lower == 'exit':
                 continue
             elif context.is_empty():
                 try:
-                    begin_state = scenario_repository[user_input]
+                    begin_state = scenario_repository[user_input_lower]
                     if 'is_start_state' in begin_state.keys() and bool(begin_state['is_start_state']):
-                        context.set_type(user_input)
+                        context.set_type(begin_state['id'])
                         run_state(begin_state, context)
                     else:
                         print("Невозможно начать выполнение с данного сценария.")
                 except KeyError:
-                    print(f'Сценарий с именем {user_input} не найден.')
+                    print(f'Сценарий с именем {user_input_lower} не найден.')
                     context.clear()
             else:
                 choose_and_run_next_state(

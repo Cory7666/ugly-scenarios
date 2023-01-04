@@ -57,6 +57,37 @@
       ]
     },
     {
+      "id": "input.university_name_with_help",
+      "is_start_state": true,
+      "var_name": "university",
+      "call": "input.university_name_with_help",
+      "next": [
+        {
+          "id": "input.course"
+        }
+      ]
+    },
+    {
+      "id": "input.course",
+      "var_name": "course",
+      "message": "Введите название курса.",
+      "next": [
+        {
+          "id": "input.semestre"
+        }
+      ]
+    },
+    {
+      "id": "input.semestre",
+      "var_name": "semestre",
+      "message": "Введите название семестра.",
+      "next": [
+        {
+          "id": "print.shedule_link"
+        }
+      ]
+    },
+    {
       "id": "print.person_info",
       "require": [
         "age"
@@ -72,6 +103,15 @@
           "id": "input.first_name"
         }
       ]
+    },
+    {
+      "id": "print.shedule_link",
+      "require": [
+        "university",
+        "course",
+        "semestre"
+      ],
+      "call": "print_schedule_link"
     }
   ]
 }

@@ -65,7 +65,7 @@ class SchedulePage:
 
 
 def __reparse_document():
-    with open('./site.htm', 'r') as input_file, open('./schedule.json', 'w', encoding='utf-16') as output_file:
+    with open('./site.htm', 'r') as input_file, open('./schedule.json', 'w', encoding='utf-8') as output_file:
         output_file.write(SchedulePage(input_file).getAsJson())
 
 
