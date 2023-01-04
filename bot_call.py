@@ -1,6 +1,24 @@
 from context import Context
 from sevsu import SchedulePage
 import time
+from scenario import scenario_repository
+import os
+
+
+def __print_available_scenarios_list(context: Context) -> None:
+    for key in sorted(scenario_repository.keys()):
+        print(key)
+
+
+def __update_scenarios_list(context: Context) -> None:
+    prev_scen_count = len(scenario_repository.keys())
+    scenario_repository.load()
+    print(
+        f"Обновлено. {prev_scen_count} -> {len(scenario_repository.keys())}.")
+
+
+def __clear_screen(context: Context) -> None:
+    os.system("clear || cls")
 
 
 def __print_schedule_link(context: Context) -> None:
@@ -12,10 +30,26 @@ def __print_schedule_link(context: Context) -> None:
 
 def __print_time(context: Context) -> None:
     print(f"Сейчас {time.asctime()}.")
-    context.clear()
 
 
-bot_calls = {
+def __input_age(context: Context) -> None:
+    print("Введите возраст.")
+
+
+def __print_person_info(context: Context) -> None:
+    if 'first_name' in context.get_container().keys():
+        print(f"Имя: {context['first_name']}. Возраст: {context['age']}.")
+    else:
+        print(f"Возраст: {context['age']}.")
+
+
+bot_calls: dict[str, (Context)] = {
     'print_schedule_link': __print_schedule_link,
-    'print_time': __print_time
+    'print_time': __print_time,
+    'input_age': __input_age,
+    'print_person_info': __print_person_info,
+
+    'print_available_scenarios_list': __print_available_scenarios_list,
+    'update_scenarios_list': __update_scenarios_list,
+    'clear_screen': __clear_screen
 }

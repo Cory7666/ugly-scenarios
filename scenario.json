@@ -1,10 +1,71 @@
 {
-  "states_container":
-  [
+  "states_container": [
+    {
+      "id": "scenario.list",
+      "call": "print_available_scenarios_list"
+    },
+    {
+      "id": "scenario.update",
+      "call": "update_scenarios_list"
+    },
+    {
+      "id": "clear",
+      "call": "clear_screen"
+    },
     {
       "id": "print.time",
       "call": "print_time",
       "next": []
+    },
+    {
+      "id": "interactive.person_info",
+      "message": "Вы выбрали сценарий считывания информации о человеке и вывода её на экран.",
+      "next": [
+        {
+          "id": "input.age"
+        }
+      ]
+    },
+    {
+      "id": "input.age",
+      "message": "Введите возраст некоторого человека.",
+      "var_name": "age",
+      "next": [
+        {
+          "if": "int(age) >= 18",
+          "id": "print.message.adult_person"
+        },
+        {
+          "id": "print.person_info"
+        }
+      ]
+    },
+    {
+      "id": "input.first_name",
+      "message": "Введите имя человека.",
+      "var_name": "first_name",
+      "next": [
+        {
+          "id": "print.person_info"
+        }
+      ]
+    },
+    {
+      "id": "print.person_info",
+      "require": [
+        "age"
+      ],
+      "call": "print_person_info",
+      "next": []
+    },
+    {
+      "id": "print.message.adult_person",
+      "message": "Указанный человек является взрослым. Потребуется ввод дополнительных данных.",
+      "next": [
+        {
+          "id": "input.first_name"
+        }
+      ]
     }
   ]
 }
