@@ -2,23 +2,28 @@
   "states_container": [
     {
       "id": "scenario.list",
+      "is_start_state": true,
       "call": "print_available_scenarios_list"
     },
     {
       "id": "scenario.update",
+      "is_start_state": true,
       "call": "update_scenarios_list"
     },
     {
       "id": "clear",
+      "is_start_state": true,
       "call": "clear_screen"
     },
     {
       "id": "print.time",
+      "is_start_state": true,
       "call": "print_time",
       "next": []
     },
     {
       "id": "interactive.person_info",
+      "is_start_state": true,
       "message": "Вы выбрали сценарий считывания информации о человеке и вывода её на экран.",
       "next": [
         {

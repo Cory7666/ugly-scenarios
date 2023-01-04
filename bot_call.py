@@ -6,8 +6,8 @@ import os
 
 
 def __print_available_scenarios_list(context: Context) -> None:
-    for key in sorted(scenario_repository.keys()):
-        print(key)
+    for key in sorted(scenario_repository):
+        print(key, "(start)" if bool(scenario_repository[key].get('is_start_state', False)) else "(general)")
 
 
 def __update_scenarios_list(context: Context) -> None:

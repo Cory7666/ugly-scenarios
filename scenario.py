@@ -9,6 +9,9 @@ class __ScenarioRepository:
     def __getitem__(self, key: str) -> dict[str, str | dict | list]:
         return self.__container['states_container'][key]
 
+    def __iter__(self):
+        return iter(self.__container['states_container'])
+
     def load(self) -> None:
         with open("./scenario.json", "r", encoding='utf-8') as file:
             self.__container = self.__parse_scenario_file(json.load(file))

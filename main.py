@@ -61,8 +61,11 @@ def main() -> None:
             elif context.is_empty():
                 try:
                     begin_state = scenario_repository[user_input]
-                    context.set_type(user_input)
-                    run_state(begin_state, context)
+                    if 'is_start_state' in begin_state.keys() and bool(begin_state['is_start_state']):
+                        context.set_type(user_input)
+                        run_state(begin_state, context)
+                    else:
+                        print("Невозможно начать выполнение с данного сценария.")
                 except KeyError:
                     print(f'Сценарий с именем {user_input} не найден.')
                     context.clear()
